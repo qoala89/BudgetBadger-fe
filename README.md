@@ -34,15 +34,14 @@ Item
 int quantity
 float weight
 PaymentInterval interval
-ItemClass itemClass
+Article article
 DateTime dateTime
 Location location
 Group[] groups
 Price price
 User buyer;
 
-ItemClass --> name needs to be changed
-String[] autocompleteHelper
+Article
 String label
 String description
 Tag[] tags
@@ -80,12 +79,16 @@ Price --> lookup for existing libraries
 BigDecimal price
 Currency currency
 
+Currency
+String name
+String code
+String symbol
 
 User
 String firstName
 String lastName
 String email
-ExchangeRate[] rates
+ExchangeRate[] rates        <---?? why here?
 Currency mainCurrency
 
 
