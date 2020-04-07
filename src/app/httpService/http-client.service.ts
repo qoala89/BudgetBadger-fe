@@ -2,20 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
-import { Item } from './model/item';
-import { Article } from './model/article';
-import { Tag } from './model/tag';
-import { Price } from './model/price';
-import { Currency } from './model/currency';
-import { User } from './model/user';
-import { Group } from './model/group';
-import { Location } from './model/location';
-import { PaymentInterval } from './model/paymentinterval';
 
 
 // Handles HTTP requests
 // This generic class can be used for all objects 
-// eg. Customer, Order, Articles
 
 @Injectable({
   providedIn: 'root'
@@ -99,92 +89,4 @@ export class HttpClientService<T> {
   }
 }
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ItemService extends HttpClientService<Item> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Item.name);
-  }
-}
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ArticleService extends HttpClientService<Article> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Article.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class TagService extends HttpClientService<Tag> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Tag.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class PriceService extends HttpClientService<Price> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Price.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class CurrencyService extends HttpClientService<Currency> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Currency.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UserService extends HttpClientService<User> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(User.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class GroupService extends HttpClientService<Group> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Group.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class LocationService extends HttpClientService<Location> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(Location.name);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class PaymentIntervalService extends HttpClientService<PaymentInterval> {
-  constructor(http: HttpClient){
-    super(http);
-    this.setObjectName(PaymentInterval.name);
-  }
-}
