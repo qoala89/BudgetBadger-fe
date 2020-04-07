@@ -1,1 +1,10 @@
-<p>expense-list works!</p>
+<div class="container">
+    <div *ngIf="viewItemsList">
+        <div class="container">
+            <a class="row" *ngFor="let item of viewItemsList">
+                <p class="col">{{item.articleLabel}}</p>
+                <p class="col">{{item.price}}</p>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,19 +1,16 @@
 import { PaymentInterval } from './paymentinterval'
-import { Article } from './article'
 import { Price } from './price'
-import { Group } from './group'
-import { User } from './user'
-import { Location } from './location'
 
 
 export class Item {
+    id:         number;
     quantity:   number;
     weight:     number;
-    article:    Article;
+    articleId:  number;
     price:      Price;
     dateTime:   string;
-    location:   Location;
+    locationId: number;
     interval:   PaymentInterval;
-    groups:     Group[];
-    buyer:      User;
+    groupIds:   number[];
+    buyerId:    number;
 }
