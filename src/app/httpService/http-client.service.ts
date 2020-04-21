@@ -14,27 +14,35 @@ export class HttpClientService<T> {
   baseUrl: string;
   objName: string;
 
+  constructor(private http: HttpClient) { 
+    //this.baseUrl = 'http://0.0.0.0:3000'; // Mockoon
+    this.baseUrl = 'api'; // InMemoryDB
+  }
+
   setObjectName(objectName: string){
     this.objName = objectName.toLowerCase();
-    this.baseUrl = "api/" + this.objName;
+  }
+  
+  setBaseUrl(baseUrl: string): void {
+    this.baseUrl = baseUrl;
   }
 
   getUrl(): string {
-    return this.baseUrl;
+    return `${this.baseUrl}/${this.objName}`;
   }
 
-  constructor(private http: HttpClient) { }
 
 
   getAll(): Observable<T[]> {
-    return this.http.get<T[]>(this.baseUrl).pipe(
-      tap(_ => this.log(`Get all ${this.objName} from ${this.baseUrl}`)),
-      catchError(this.handleError<T[]>(`Get all ${this.objName} from ${this.baseUrl}`))
+    const url = `${this.baseUrl}/${this.objName}`;
+    return this.http.get<T[]>(url).pipe(
+      tap(_ => this.log(`Get all ${this.objName} from ${url}`)),
+      catchError(this.handleError<T[]>(`Get all ${this.objName} from ${url}`))
     );
   }
 
   get(id: number): Observable<T> {
-    const url = this.baseUrl + "/" + id;
+    const url = `${this.baseUrl}/${this.objName}/${id}`;
     return this.http.get<T>(url).pipe(
       tap(_ => this.log(`Get ${this.objName} from ${url}`)),
       catchError(this.handleError<T>(`Get ${this.objName} from ${url}`))
@@ -46,28 +54,29 @@ export class HttpClientService<T> {
  };
 
   put(newObj: T): Observable<T> {
-    return this.http.put<T>(this.baseUrl, newObj, this.httpOptions).pipe(
+    const url = `${this.baseUrl}/${this.objName}`;
+    return this.http.put<T>(url, newObj, this.httpOptions).pipe(
       tap(_ => {
-        this.log(`Put ${this.objName} to ${this.baseUrl}`);
+        this.log(`Put ${this.objName} to ${url}`);
         console.debug(newObj);
         }),
-      catchError(this.handleError<T>(`Put ${this.objName} to ${this.baseUrl}`))
+      catchError(this.handleError<T>(`Put ${this.objName} to ${url}`))
     );
   }
   
 
   post(newObj: T): Observable<T> {
-    return this.http.post<T>(this.baseUrl, newObj, this.httpOptions)
+    const url = `${this.baseUrl}/${this.objName}`;
+    return this.http.post<T>(url, newObj, this.httpOptions)
       .pipe(
-        tap( addedObj => this.log(`Added new ${this.objName} to ${this.baseUrl}`)),
-        catchError(this.handleError<T>(`Added new ${this.objName} to ${this.baseUrl}`))
+        tap( addedObj => this.log(`Added new ${this.objName} to ${url}`)),
+        catchError(this.handleError<T>(`Added new ${this.objName} to ${url}`))
       );
   }
 
 
   delete(objId: number) :Observable<T> {
-    console.log(objId);
-    const url = this.baseUrl+"/"+objId;
+    const url = `${this.baseUrl}/${this.objName}/${objId}`;
     return this.http.delete<T>(url, this.httpOptions)
     .pipe(
       tap( _ => this.log(`Deleted ${this.objName} id ${objId} from ${url}`)),

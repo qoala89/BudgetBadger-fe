@@ -5,16 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
+import { CreateExpenseComponent } from './create-expense/create-expense.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDatabaseService } from './in-memory-database.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ExpenseListComponent
+    ExpenseListComponent,
+    CreateExpenseComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDatabaseService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

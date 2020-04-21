@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ExpenseModel } from '../expense-model';
+import { ActivatedRoute, Data} from '@angular/router';
+import { ItemService } from '../httpService/ItemService';
 
-import { Item } from '../model/item';
-import { Article } from '../model/article';
-import { Tag } from '../model/tag';
-import { Currency } from '../model/currency';
-import { Location } from '../model/location';
-import { FetcherService } from '../fetcher.service';
+
 
 
 @Component({
@@ -14,36 +12,22 @@ import { FetcherService } from '../fetcher.service';
   styleUrls: ['./expense-list.component.scss']
 })
 export class ExpenseListComponent implements OnInit {
-  viewItemsList: 
-  {
-    articleLabel: string,
-    price:      string,
-    tags:       Tag[],
-  }[];
+  expenseList: ExpenseModel[];
 
   constructor(
-    private fetchService: FetcherService
-    ) { 
-
+    private route: ActivatedRoute,
+    private itemService: ItemService) { 
   }
 
   ngOnInit(): void {
-    this.initViewModel();
+    this.initModel();
   }
 
-  initViewModel(): void {
-    this.viewItemsList = this.fetchService.itemList.map(
-      item => {
-        const article = this.fetchService.getArticle(item.articleId);
-        const currency = this.fetchService.getCurrency(item.price.currencyId);
-        const tags = article.tagIds.map(_tagId => 
-          this.fetchService.getTag(_tagId)
-        );
-        return{
-          articleLabel: article.label,
-          price: `${item.price.price} ${currency.symbol}`,
-          tags: tags,
-        }
+  initModel(): void {
+    this.route.data.subscribe(
+      (data: Data) => {
+        this.expenseList = data['expenseList'];
+        console.warn(this.expenseList);
       }
     );
   }

@@ -1,9 +1,9 @@
 <div class="container">
-    <div *ngIf="viewItemsList">
+    <div *ngIf="expenseList">
         <div class="container">
-            <a class="row" *ngFor="let item of viewItemsList">
-                <p class="col">{{item.articleLabel}}</p>
-                <p class="col">{{item.price}}</p>
+            <a class="row" *ngFor="let expense of expenseList">
+                <p class="col">{{expense.articleLabel}}</p>
+                <p class="col">{{expense.price}}</p>
             </a>
         </div>
     </div>
